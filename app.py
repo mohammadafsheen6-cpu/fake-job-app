@@ -4,8 +4,8 @@ import pickle
 st.title("Fake Job Detection")
 
 try:
-    model = pickle.load(open(r"FakeJobProject\model.pkl", "rb"))
-    vectorizer = pickle.load(open(r"FakeJobProject\vectorizer.pkl", "rb"))
+    model = pickle.load(open(r"fake-job-app\model.pkl", "rb"))
+    vectorizer = pickle.load(open(r"fake-job-app\vectorizer.pkl", "rb"))
 except:
     st.error("Model files not loaded properly")
     st.stop()
