@@ -1,22 +1,11 @@
 import streamlit as st
 import pickle
-import os
 
 st.title("Fake Job Detection")
 
-# Get current directory
-BASE_DIR = os.path.dirname(os.path.abspath(_file_))
-
 try:
     model = pickle.load(open("model.pkl", "rb"))
-vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
-
-    with open(model_path, "rb") as f:
-        model = pickle.load(f)
-
-    with open(vectorizer_path, "rb") as f:
-        vectorizer = pickle.load(f)
-
+    vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
 except Exception as e:
     st.error(f"Error loading model files: {e}")
     st.stop()
