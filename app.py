@@ -1,25 +1,36 @@
 import streamlit as st
 import pickle
+import os
 
 st.title("Fake Job Detection")
 
+# Get current directory
+BASE_DIR = os.path.dirname(os.path.abspath(_file_))
+
 try:
-    model = pickle.load(open(r"fake-job-app\model.pkl", "rb"))
-    vectorizer = pickle.load(open(r"fake-job-app\vectorizer.pkl", "rb"))
-except:
-    st.error("Model files not loaded properly")
+    model_path = os.path.join(BASE_DIR, "model.pkl")
+    vectorizer_path = os.path.join(BASE_DIR, "vectorizer.pkl")
+
+    with open(model_path, "rb") as f:
+        model = pickle.load(f)
+
+    with open(vectorizer_path, "rb") as f:
+        vectorizer = pickle.load(f)
+
+except Exception as e:
+    st.error(f"Error loading model files: {e}")
     st.stop()
 
 user_input = st.text_area("Enter Job Description")
 
 if st.button("Predict"):
-    if user_input:
+    if user_input.strip():
         input_data = vectorizer.transform([user_input])
         prediction = model.predict(input_data)
 
         if prediction[0] == 1:
-            st.error("Fake Job")
+            st.error("⚠️ Fake Job")
         else:
-            st.success("Real Job")
+            st.success("✅ Real Job")
     else:
-        st.warning("Enter text first")
+        st.warning("Please enter job description")
