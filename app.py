@@ -8,8 +8,8 @@ st.title("Fake Job Detection")
 BASE_DIR = os.path.dirname(os.path.abspath(_file_))
 
 try:
-    model_path = os.path.join(BASE_DIR, "model.pkl")
-    vectorizer_path = os.path.join(BASE_DIR, "vectorizer.pkl")
+    model = pickle.load(open("model.pkl", "rb"))
+vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
 
     with open(model_path, "rb") as f:
         model = pickle.load(f)
